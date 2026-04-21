@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Atmospheric Design | KalyanamHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #D4AF37; --bg: #050505; --surface: #0F0F10; --border: rgba(255, 255, 255, 0.08); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; }
+        
+        .header { padding: 160px 0 80px; text-align: center; border-bottom: 1px solid var(--border); }
+        .header h1 { font-family: 'Playfair Display', serif; font-size: 52px; }
+        .header p { color: var(--gold); font-size: 11px; text-transform: uppercase; letter-spacing: 4px; }
+
+        .container { max-width: 1300px; margin: 0 auto; padding: 80px 25px; }
+        .design-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+
+        .design-card { 
+            position: relative; height: 500px; border-radius: 4px; overflow: hidden; 
+            border: 1px solid var(--border); transition: 0.5s;
+        }
+        .design-card:hover { border-color: var(--gold); }
+        .img-container { width: 100%; height: 100%; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; transition: 1s; }
+        .design-card:hover img { opacity: 0.8; transform: scale(1.05); }
+
+        .content-overlay { 
+            position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px; 
+            background: linear-gradient(transparent, rgba(0,0,0,0.9)); 
+        }
+        .content-overlay h3 { font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 10px; }
+        .price { color: var(--gold); font-weight: 700; display: block; margin-bottom: 20px; }
+
+        .select-btn {
+            display: inline-block; padding: 14px 35px; border: 1px solid #fff;
+            color: #fff; text-decoration: none; font-size: 11px; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; cursor: pointer; background: transparent;
+        }
+        .select-btn.added { background: var(--gold); color: #000; border-color: var(--gold); }
+
+        .final-link {
+            display: block; width: 300px; margin: 80px auto; padding: 22px;
+            border: 1px solid var(--gold); color: var(--gold); text-align: center;
+            text-decoration: none; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; transition: 0.4s;
+        }
+        .final-link:hover { background: var(--gold); color: #000; }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <p>Aesthetic Identity</p>
+        <h1>Floral & Architectural Design</h1>
+    </header>
+
+    <div class="container">
+        <div class="design-grid">
+            
+            <div class="design-card">
+                <div class="img-container"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop"></div>
+                <div class="content-overlay">
+                    <h3>The Glass Pavilion</h3>
+                    <span class="price">₹2,00,000</span>
+                    <button class="select-btn" data-name="Glass Pavilion" data-price="200000" onclick="toggleService('Glass Pavilion', 200000)">Add Service</button>
+                </div>
+            </div>
+
+            <div class="design-card">
+                <div class="img-container"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069&auto=format&fit=crop"></div>
+                <div class="content-overlay">
+                    <h3>Imperial Red & Gold</h3>
+                    <span class="price">₹1,50,000</span>
+                    <button class="select-btn" data-name="Imperial Red & Gold" data-price="150000" onclick="toggleService('Imperial Red & Gold', 150000)">Add Service</button>
+                </div>
+            </div>
+
+            <div class="design-card">
+                <div class="img-container"><img src="https://images.unsplash.com/photo-1507502707541-f369a3b18502?q=80&w=1976&auto=format&fit=crop"></div>
+                <div class="content-overlay">
+                    <h3>Midnight Forest</h3>
+                    <span class="price">₹3,00,000</span>
+                    <button class="select-btn" data-name="Midnight Forest" data-price="300000" onclick="toggleService('Midnight Forest', 300000)">Add Service</button>
+                </div>
+            </div>
+
+            <div class="design-card">
+                <div class="img-container"><img src="https://images.unsplash.com/photo-1522673607200-1648832cee98?q=80&w=2070&auto=format&fit=crop"></div>
+                <div class="content-overlay">
+                    <h3>Minimalist Estate</h3>
+                    <span class="price">₹1,20,000</span>
+                    <button class="select-btn" data-name="Minimalist Estate" data-price="120000" onclick="toggleService('Minimalist Estate', 120000)">Add Service</button>
+                </div>
+            </div>
+
+        </div>
+
+        <a href="venues.html" class="final-link">Next: Select Your Venue →</a>
+    </div>
+
+    <script>
+        function toggleService(name, price) {
+            let cart = JSON.parse(localStorage.getItem('kalyanamCart')) || { services: [], venue: null };
+            const index = cart.services.findIndex(s => s.name === name);
+            const btn = event.target;
+            
+            if (index > -1) {
+                cart.services.splice(index, 1);
+                btn.innerText = "Add Service";
+                btn.classList.remove('added');
+            } else {
+                cart.services.push({ name, price, category: 'Decoration' });
+                btn.innerText = "Remove Service";
+                btn.classList.add('added');
+            }
+            localStorage.setItem('kalyanamCart', JSON.stringify(cart));
+        }
+
+        window.onload = () => {
+            let cart = JSON.parse(localStorage.getItem('kalyanamCart')) || { services: [] };
+            document.querySelectorAll('.select-btn').forEach(btn => {
+                if (cart.services.some(s => s.name === btn.getAttribute('data-name'))) {
+                    btn.innerText = "Remove Service";
+                    btn.classList.add('added');
+                }
+            });
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gourmet Execution | KalyanamHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #D4AF37; --bg: #050505; --surface: #0F0F10; --border: rgba(255, 255, 255, 0.08); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        
+        .header { padding: 160px 0 60px; text-align: center; }
+        .header h1 { font-family: 'Playfair Display', serif; font-size: 52px; }
+        .header p { color: var(--gold); font-size: 11px; text-transform: uppercase; letter-spacing: 4px; margin-top: 10px; }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 80px 25px 120px; }
+        .menu-tier { 
+            display: flex; background: var(--surface); border: 1px solid var(--border); 
+            margin-bottom: 30px; border-radius: 4px; overflow: hidden; transition: 0.4s;
+        }
+        .menu-tier:hover { border-color: var(--gold); }
+        .menu-img { width: 35%; overflow: hidden; }
+        .menu-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 1s; }
+        .menu-tier:hover .menu-img img { opacity: 1; transform: scale(1.05); }
+        
+        .menu-content { width: 65%; padding: 40px; position: relative; }
+        .menu-content h3 { font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 10px; }
+        .menu-content p { color: #86868B; font-size: 14px; line-height: 1.6; margin-bottom: 25px; }
+        .price-box { font-weight: 700; font-size: 18px; color: #fff; margin-bottom: 20px; }
+
+        .select-btn {
+            display: inline-block; padding: 12px 30px; border: 1px solid var(--border);
+            color: #fff; text-decoration: none; font-size: 11px; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; cursor: pointer; background: transparent;
+        }
+        .select-btn.added { background: var(--gold); color: #000; border-color: var(--gold); }
+
+        .next-step-btn {
+            display: block; width: 300px; margin: 40px auto; padding: 20px;
+            border: 1px solid var(--gold); color: var(--gold); text-decoration: none;
+            text-align: center; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; transition: 0.4s;
+        }
+        .next-step-btn:hover { background: var(--gold); color: #000; }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <p>Culinary Excellence</p>
+        <h1>The Catering Tiers</h1>
+    </header>
+
+    <div class="container">
+        <div class="menu-tier">
+            <div class="menu-img"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1974&auto=format&fit=crop"></div>
+            <div class="menu-content">
+                <h3>Heritage South Indian</h3>
+                <p>Authentic multi-course banana leaf service featuring traditional recipes from across Andhra and Telangana.</p>
+                <div class="price-box">₹800 / Plate</div>
+                <button class="select-btn" data-name="Heritage South Indian" data-price="800" onclick="toggleService('Heritage South Indian', 800)">Add Service</button>
+            </div>
+        </div>
+
+        <div class="menu-tier">
+            <div class="menu-img"><img src="https://images.unsplash.com/photo-1543353071-873f17a7a088"></div>
+            <div class="menu-content">
+                <h3>Interactive Stations</h3>
+                <p>Gourmet live counters featuring artisan grills, chat galleries, and bespoke preparation.</p>
+                <div class="price-box">₹1,200 / Plate</div>
+                <button class="select-btn" data-name="Interactive Stations" data-price="1200" onclick="toggleService('Interactive Stations', 1200)">Add Service</button>
+            </div>
+        </div>
+
+        <div class="menu-tier">
+            <div class="menu-img"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop"></div>
+            <div class="menu-content">
+                <h3>Modernist Degustation</h3>
+                <p>Small-plate fine dining experience with focused flavors and molecular techniques.</p>
+                <div class="price-box">₹1,800 / Plate</div>
+                <button class="select-btn" data-name="Modernist Degustation" data-price="1800" onclick="toggleService('Modernist Degustation', 1800)">Add Service</button>
+            </div>
+        </div>
+
+        <div class="menu-tier">
+            <div class="menu-img"><img src="https://images.unsplash.com/photo-1550966842-2b62227d8123?q=80&w=1974&auto=format&fit=crop"></div>
+            <div class="menu-content">
+                <h3>Global Estate Buffet</h3>
+                <p>A curated selection of continental, asian, and local specialties in a luxury layout.</p>
+                <div class="price-box">₹2,500 / Plate</div>
+                <button class="select-btn" data-name="Global Estate Buffet" data-price="2500" onclick="toggleService('Global Estate Buffet', 2500)">Add Service</button>
+            </div>
+        </div>
+
+        <a href="decoration.html" class="next-step-btn">Next: Atmosphere & Design →</a>
+    </div>
+
+    <script>
+        function toggleService(name, price) {
+            let cart = JSON.parse(localStorage.getItem('kalyanamCart')) || { services: [], venue: null };
+            const index = cart.services.findIndex(s => s.name === name);
+            const btn = event.target;
+            
+            if (index > -1) {
+                cart.services.splice(index, 1);
+                btn.innerText = "Add Service";
+                btn.classList.remove('added');
+            } else {
+                cart.services.push({ name, price, category: 'Catering' });
+                btn.innerText = "Remove Service";
+                btn.classList.add('added');
+            }
+            localStorage.setItem('kalyanamCart', JSON.stringify(cart));
+        }
+
+        window.onload = () => {
+            let cart = JSON.parse(localStorage.getItem('kalyanamCart')) || { services: [] };
+            document.querySelectorAll('.select-btn').forEach(btn => {
+                if (cart.services.some(s => s.name === btn.getAttribute('data-name'))) {
+                    btn.innerText = "Remove Service";
+                    btn.classList.add('added');
+                }
+            });
+        };
+    </script>
+</body>
+</html>
