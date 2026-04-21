@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Contact Us - VenueVista</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #0f172a;
+  color: white;
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  padding: 50px;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 700px;
+  margin: auto;
+  background: #111827;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+/* INPUTS */
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+/* BUTTON */
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 20px;
+  background: gold;
+  color: black;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.03);
+}
+
+/* INFO */
+.info {
+  margin-top: 20px;
+  text-align: center;
+  color: #9ca3af;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>Contact Us</h1>
+  <p>We’re here to help you plan your perfect event</p>
+</div>
+
+<div class="container">
+
+<form onsubmit="submitForm(event)">
+
+<input type="text" placeholder="Full Name" required>
+
+<input type="tel" placeholder="Mobile Number" required>
+
+<select required>
+  <option value="">Select Event Type</option>
+  <option>Wedding</option>
+  <option>Birthday</option>
+  <option>Corporate</option>
+</select>
+
+<textarea rows="4" placeholder="Your Message"></textarea>
+
+<button type="submit">Send Message</button>
+
+</form>
+
+<div class="info">
+  📞 +91 9876543210 <br>
+  📧 venuvista@email.com <br>
+  📍 Andhra Pradesh, India
+</div>
+
+</div>
+
+<script>
+function submitForm(e){
+  e.preventDefault();
+  alert("✅ Message Sent Successfully!");
+}
+</script>
+
+</body>
+</html>

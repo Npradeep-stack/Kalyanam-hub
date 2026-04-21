@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atmospheric Design | VenueVista</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #D4AF37; --bg: #050505; --surface: #0F0F10; --border: rgba(255, 255, 255, 0.08); --text-dim: #86868B; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        
+        .header { padding: 160px 0 80px; text-align: center; border-bottom: 1px solid var(--border); }
+        .header h1 { font-family: 'Playfair Display', serif; font-size: 52px; margin-bottom: 15px; }
+        .header p { color: var(--gold); font-size: 11px; text-transform: uppercase; letter-spacing: 4px; }
+
+        .container { max-width: 1300px; margin: 0 auto; padding: 80px 25px; }
+
+        .design-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+
+        .design-card {
+            background: var(--surface); border: 1px solid var(--border);
+            position: relative; overflow: hidden; transition: 0.6s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+        .design-card:hover { border-color: var(--gold); transform: translateY(-10px); }
+
+        .img-container { width: 100%; height: 550px; overflow: hidden; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 1.5s; }
+        .design-card:hover img { opacity: 0.9; transform: scale(1.08); }
+
+        .content-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%; padding: 50px 40px;
+            background: linear-gradient(transparent, rgba(5,5,5,1) 85%);
+        }
+
+        .category { font-size: 10px; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; display: block; }
+        .design-card h3 { font-family: 'Playfair Display', serif; font-size: 30px; margin-bottom: 15px; }
+        .design-card p { color: var(--text-dim); font-size: 14px; margin-bottom: 30px; line-height: 1.6; max-width: 90%; }
+
+        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 25px;}
+        .price { font-weight: 600; letter-spacing: 1px; font-size: 14px; color: #fff; }
+        .select-btn { 
+            padding: 14px 35px; background: var(--gold); color: #000; text-decoration: none; 
+            font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px;
+        }
+
+        @media (max-width: 900px) { .design-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <p>Aesthetic Architecture</p>
+        <h1>Stage Environments</h1>
+    </header>
+
+    <div class="container">
+        <div class="design-grid">
+            <div class="design-card">
+                <div class="img-container"><img src="https://bookanevent.in/public/uploads/all/SemHRtb5WDml2LBEG5QsD7mcvedXHFvncyNdSeBV.png"></div>
+                <div class="content-overlay">
+                    <span class="category">Minimalist</span>
+                    <h3>Vedic Floral</h3>
+                    <p>Organic floral geometry paired with focused architectural lighting for an ethereal glow.</p>
+                    <div class="card-footer">
+                        <span class="price">₹15,000 — ₹40,000</span>
+                        <a href="booking.html" class="select-btn">Select Design</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="design-card">
+                <div class="img-container"><img src="https://cdn0.weddingwire.in/vendor/1852/3_2/640/jpg/whatsapp-image-2025-10-03-at-11-39-20-b24ed444-15-491852-175947215840751_15_491852-175947587575551.jpeg"></div>
+                <div class="content-overlay">
+                    <span class="category">Standard</span>
+                    <h3>The Heritage Mandap</h3>
+                    <p>A balanced traditional setup featuring aisle floral pathways and classic silhouettes.</p>
+                    <div class="card-footer">
+                        <span class="price">₹40,000 — ₹80,000</span>
+                        <a href="booking.html" class="select-btn">Select Design</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="design-card">
+                <div class="img-container"><img src="https://cdn0.weddingwire.in/vendor/8501/3_2/640/jpg/red-and-gold-mandap_15_488501-175742829784031.jpeg"></div>
+                <div class="content-overlay">
+                    <span class="category">Premium</span>
+                    <h3>Imperial Red & Gold</h3>
+                    <p>High-status velvet textures and gold-plated mandap structures for royal impact.</p>
+                    <div class="card-footer">
+                        <span class="price">₹80,000 — ₹1,50,000</span>
+                        <a href="booking.html" class="select-btn">Select Design</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="design-card">
+                <div class="img-container"><img src="https://www.marriagecolours.com/wp-content/uploads/2025/10/Sindhu-Raghavan-Saravana-Raj-Reception-Apr-22-Sree-Varaaham-1.jpg"></div>
+                <div class="content-overlay">
+                    <span class="category">Luxury</span>
+                    <h3>Grand Reception Legacy</h3>
+                    <p>Massive-scale floral walls and dynamic lighting designed for landmark celebrations.</p>
+                    <div class="card-footer">
+                        <span class="price">₹1,50,000 — ₹3,50,000</span>
+                        <a href="booking.html" class="select-btn">Select Design</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="design-card">
+                <div class="img-container"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop"></div>
+                <div class="content-overlay">
+                    <span class="category">Cinematic</span>
+                    <h3>The Glass Pavilion</h3>
+                    <p>Modern transparent structures with cascading greenery and hanging crystal arrays.</p>
+                    <div class="card-footer">
+                        <span class="price">₹2,00,000 — ₹4,00,000</span>
+                        <a href="booking.html" class="select-btn">Select Design</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="design-card">
+                <div class="img-container"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069&auto=format&fit=crop"></div>
+                <div class="content-overlay">
+                    <span class="category">Exclusive</span>
+                    <h3>Midnight Forest</h3>
+                    <p>A deep-toned aesthetic featuring dark flora and neon-accented architectural lines.</p>
+                    <div class="card-footer">
+                        <span class="price">₹3,00,000+</span>
+                        <a href="booking.html" class="select-btn">Select Design</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
