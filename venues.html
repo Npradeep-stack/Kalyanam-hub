@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalyanam Hub | Venue Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root { 
+            --brand: black; #FACC15; --light-gold: #FACC15; --danger: #ef4444; --success: #10b981; --bg: #f1f5f9; 
+            --border: #e2e8f0; --accent: #6366f1; --text-muted: #64748b; --star: #f59e0b;
+            --peak: #f43f5e; --standard: #6366f1; --off: #10b981;
+        }
+        
+        * { box-sizing: border-box; transition: 0.3s ease; }
+        body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); padding-top: 280px; color: var(--brand); }
+
+        /* --- HEADER & NAVIGATION --- */
+        .header-container { position: fixed; top: 0; width: 100%; z-index: 1000; background: white; border-bottom: 1px solid var(--border); }
+        .nav-main { padding: 20px 60px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: 800; font-size: 24px; text-decoration: none; color: var(--brand); }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-item { cursor: pointer; font-weight: 700; color: var(--text-muted); position: relative; }
+        .nav-item.active { color: var(--brand); }
+        .nav-item.active::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 3px; background: var(--accent); border-radius: 10px; }
+
+        .filter-bar { background: #fff; padding: 20px 60px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; border-bottom: 1px solid var(--border); }
+        .f-group label { font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 8px; }
+        .f-group select, .f-group input { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid var(--border); background: #f8fafc; font-weight: 600; outline: none; }
+
+        /* --- GRID & CARDS --- */
+        .page { display: none; max-width: 1200px; margin: 0 auto; padding: 40px; }
+        .active-page { display: block; }
+
+        #hall-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; }
+        .card { background: white; border-radius: 30px; border: 1px solid var(--border); overflow: hidden; position: relative; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        
+        .season-badge {
+            position: absolute; top: 15px; right: 15px; padding: 6px 12px; border-radius: 50px; 
+            font-size: 10px; font-weight: 800; color: white; z-index: 10;
+        }
+
+        .card-img { width: 100%; height: 240px; object-fit: cover; }
+        .card-body { padding: 25px; }
+        .price-now { font-size: 32px; font-weight: 800; color: var(--brand); letter-spacing: -1px; }
+        .btn-main { width: 100%; padding: 18px; border-radius: 15px; border: none; background: var(--brand); color: white; font-weight: 800; cursor: pointer; margin-top: 15px; }
+        
+        /* --- MODAL --- */
+        #modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px); z-index: 2000; align-items: center; justify-content: center; }
+        .modal-box { background: white; width: 100%; max-width: 700px; border-radius: 30px; padding: 30px; max-height: 90vh; overflow-y: auto; }
+        
+        .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .input-row input { padding: 14px; border-radius: 12px; border: 1.5px solid var(--border); font-weight: 600; font-family: inherit; }
+
+        .lobby-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
+        .lobby-card { border: 2px solid var(--border); border-radius: 15px; cursor: pointer; overflow: hidden; text-align: center; font-size: 11px; position: relative; }
+        .lobby-card img { width: 100%; height: 80px; object-fit: cover; }
+        
+        .lobby-card.selected { border-color: var(--accent); background: #f5f7ff; }
+        .remove-x { 
+            position: absolute; top: 5px; right: 5px; background: var(--danger); color: white; 
+            width: 20px; height: 20px; border-radius: 50%; display: none; align-items: center; 
+            justify-content: center; font-size: 10px; font-weight: bold; z-index: 5;
+        }
+        .lobby-card.selected .remove-x { display: flex; }
+
+        .fee-item { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
+        .fee-tag { font-size: 10px; color: var(--danger); font-weight: 800; background: #fee2e2; padding: 2px 6px; border-radius: 4px; }
+        
+        /* --- BOOKINGS --- */
+        .booking-ticket { background: white; border-radius: 25px; border: 1px solid var(--border); display: flex; overflow: hidden; margin-bottom: 20px; }
+        .ticket-visual { width: 200px; }
+        .ticket-visual img { width: 100%; height: 100%; object-fit: cover; }
+        .ticket-content { flex: 1; padding: 20px; }
+        .btn-cancel { padding: 8px 16px; border-radius: 8px; border: 1.5px solid var(--danger); background: transparent; color: var(--danger); font-weight: 700; cursor: pointer; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="header-container">
+    <nav class="nav-main">
+        <a href="index.html" class="logo">Kalyanam<span>Hub</span></a>
+        <div class="nav-links">
+            <span id="link-halls" class="nav-item active" onclick="switchPage('halls')">Venues</span>
+            <span id="link-bookings" class="nav-item" onclick="switchPage('bookings')">My Bookings</span>
+        </div>
+    </nav>
+    <div class="filter-bar">
+        <div class="f-group"><label>Location</label><select id="city-f" onchange="update()"><option value="Rajahmundry">Rajahmundry</option><option value="Vijayawada">Vijayawada</option></select></div>
+        <div class="f-group"><label>Event Date</label><input type="date" id="date-f" onchange="update()"></div>
+        <div class="f-group"><label>Budget Limit</label><select id="budget-f" onchange="update()"><option value="9999999">Show All</option><option value="200000">Upto 2L</option><option value="500000">Upto 5L</option></select></div>
+    </div>
+</div>
+
+<div id="page-halls" class="page active-page"><div id="hall-grid"></div></div>
+<div id="page-bookings" class="page"><h1 style="letter-spacing:-1.5px; font-weight:800;">My Bookings</h1><div id="booking-list"></div></div>
+
+<div id="modal-overlay"><div class="modal-box" id="modal-content"></div></div>
+
+<script>
+const venues = [
+    // RAJAHMUNDRY
+    { id: 1, name: "Goutami Grand", base: 150000, img: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800", loc: 'Rajahmundry', rating: 4.8 },
+    { id: 2, name: "Godavari Convention", base: 350000, img: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800", loc: 'Rajahmundry', rating: 4.9 },
+    { id: 3, name: "River Bay Palace", base: 280000, img: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800", loc: 'Rajahmundry', rating: 4.6 },
+    { id: 4, name: "Royal Emerald Hall", base: 190000, img: "https://images.unsplash.com/photo-1478147427282-58a87a120781?w=800", loc: 'Rajahmundry', rating: 4.7 },
+
+    // VIJAYAWADA - FIXED IMAGES
+    { id: 5, name: "The Capital Royale", base: 250000, img: "https://images.unsplash.com/photo-1505232987724-4f8069695627?w=800", loc: 'Vijayawada', rating: 4.7 },
+    { id: 6, name: "Novotel Grand Ballroom", base: 550000, img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800", loc: 'Vijayawada', rating: 4.9 },
+    { id: 7, name: "A Convention Center", base: 420000, img: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800", loc: 'Vijayawada', rating: 4.8 },
+    { id: 8, name: "Victoria Celebration", base: 310000, img: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800", loc: 'Vijayawada', rating: 4.8 }
+];
+
+const addons = [
+    { id: 'a1', name: "Catering", price: 85000, img: "https://images.unsplash.com/photo-1555244162-803834f70033?w=300" },
+    { id: 'a2', name: "Decoration", price: 50000, img: "https://images.unsplash.com/photo-1519741497674-611481863552?w=300" },
+    { id: 'a3', name: "Photography", price: 40000, img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=300" },
+    { id: 'a4', name: "Live DJ", price: 20000, img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300" },
+    { id: 'a5', name: "Makeup Artist", price: 15000, img: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=300" },
+    { id: 'a6', name: "Drone Shoot", price: 12000, img: "https://images.unsplash.com/photo-1507504031003-b417219a0fde?w=300" }
+];
+
+const PLATFORM_FEE = 1499;
+let myBookings = [], selectedAddons = new Set(), currentHall = null, activePrice = 0;
+
+function update() {
+    const city = document.getElementById('city-f').value;
+    const dateInput = document.getElementById('date-f').value;
+    const budget = parseInt(document.getElementById('budget-f').value);
+    const grid = document.getElementById('hall-grid'); grid.innerHTML = "";
+    
+    let multiplier = 0.85; 
+    let seasonText = "STANDARD PRICING";
+    let seasonColor = "var(--standard)";
+
+    if(dateInput) {
+        const month = new Date(dateInput).getMonth() + 1;
+        if(month >= 2 && month <= 5) { multiplier = 1.25; seasonText = "PEAK SEASON (+25%)"; seasonColor = "var(--peak)"; }
+        else if(month == 7 || month == 8) { multiplier = 0.80; seasonText = "OFF-SEASON (-20%)"; seasonColor = "var(--off)"; }
+    }
+
+    venues.filter(v => v.loc === city).forEach(v => {
+        const finalP = Math.round(v.base * multiplier);
+        if (finalP <= budget) {
+            grid.innerHTML += `
+                <div class="card">
+                    <div class="season-badge" style="background:${seasonColor}">${seasonText}</div>
+                    <img src="${v.img}" class="card-img" onerror="this.src='https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800'">
+                    <div class="card-body">
+                        <div class="price-now">₹${finalP.toLocaleString()}</div>
+                        <h2 style="margin:5px 0 15px;">${v.name}</h2>
+                        <button class="btn-main" onclick="openLobby(${v.id}, ${finalP})">Book Now</button>
+                    </div>
+                </div>`;
+        }
+    });
+}
+
+function openLobby(id, price) {
+    currentHall = venues.find(v => v.id === id);
+    activePrice = price;
+    selectedAddons.clear();
+    renderModal();
+}
+
+function renderModal() {
+    const venueAdvance = Math.round(activePrice * 0.10);
+    let adHtml = "", adSum = 0;
+    
+    addons.forEach(a => {
+        const isS = selectedAddons.has(a.id);
+        if(isS) adSum += a.price;
+        adHtml += `
+            <div class="lobby-card ${isS ? 'selected' : ''}" onclick="toggleAddon('${a.id}')">
+                <div class="remove-x"><i class="fas fa-times"></i></div>
+                <img src="${a.img}">
+                <div style="padding:8px;"><b>${a.name}</b><br>₹${a.price.toLocaleString()}</div>
+            </div>`;
+    });
+
+    const total = venueAdvance + adSum + PLATFORM_FEE;
+
+    document.getElementById('modal-content').innerHTML = `
+        <h2 style="margin:0 0 10px;">Booking Details</h2>
+        <div class="input-row">
+            <input type="text" id="cust-name" placeholder="Full Name">
+            <input type="tel" id="cust-phone" placeholder="Phone Number">
+        </div>
+        <p style="color:var(--text-muted); font-size:14px; margin-bottom:5px;">Add Services (Click to Remove with X):</p>
+        <div class="lobby-grid">${adHtml}</div>
+        <div style="background:#f8fafc; padding:20px; border-radius:20px; border:1px solid var(--border);">
+            <div class="fee-item"><span>Venue Advance (10%)</span><b>₹${venueAdvance.toLocaleString()}</b></div>
+            <div class="fee-item"><span>Platform Fee <span class="fee-tag">NON-REFUNDABLE</span></span><b>₹${PLATFORM_FEE.toLocaleString()}</b></div>
+            <div class="fee-item" style="font-size:18px; font-weight:800; border-top:1px solid #ddd; padding-top:10px; margin-top:5px;">
+                <span>Total Payable</span><span>₹${total.toLocaleString()}</span>
+            </div>
+        </div>
+        <button class="btn-main" style="background:var(--accent);" onclick="confirmB(${total})">Complete Payment</button>
+        <p style="font-size:11px; text-align:center; color:var(--text-muted); margin-top:15px;">* Strict Policy: 5% cut + platform fee deducted on all cancellations.</p>
+    `;
+    document.getElementById('modal-overlay').style.display = 'flex';
+}
+
+function toggleAddon(id) {
+    if(selectedAddons.has(id)) selectedAddons.delete(id);
+    else selectedAddons.add(id);
+    renderModal();
+}
+
+function confirmB(total) {
+    const name = document.getElementById('cust-name').value;
+    const phone = document.getElementById('cust-phone').value;
+    if(!name || !phone) return alert("Please enter Name and Phone to continue.");
+
+    const bid = "KH-" + Math.floor(Math.random() * 9000);
+    myBookings.unshift({ 
+        id: bid, hall: currentHall.name, img: currentHall.img, 
+        total: total, timestamp: Date.now(), status: 'Confirmed',
+        user: name
+    });
+    document.getElementById('modal-overlay').style.display = 'none';
+    switchPage('bookings');
+}
+
+function cancelBooking(id) {
+    const bIndex = myBookings.findIndex(b => b.id === id);
+    const b = myBookings[bIndex];
+    
+    // Strict 5% cut from total + Platform Fee
+    const fivePercentCut = b.total * 0.05;
+    const refund = b.total - fivePercentCut - PLATFORM_FEE;
+
+    const detail = `Cancellation Summary:\n----------------------\nTotal Paid: ₹${b.total.toLocaleString()}\n5% Service Cut: -₹${fivePercentCut.toLocaleString()}\nPlatform Fee: -₹${PLATFORM_FEE.toLocaleString()}\n----------------------\nNet Refund: ₹${Math.max(0, refund).toLocaleString()}`;
+
+    if(confirm(detail + "\n\nDo you want to proceed with cancellation?")) {
+        myBookings[bIndex].status = 'Cancelled';
+        renderBookings();
+    }
+}
+
+function switchPage(p) {
+    document.querySelectorAll('.page').forEach(x => x.classList.remove('active-page'));
+    document.getElementById('page-'+p).classList.add('active-page');
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('link-'+p).classList.add('active');
+    if(p === 'bookings') renderBookings();
+}
+
+function renderBookings() {
+    const list = document.getElementById('booking-list');
+    list.innerHTML = myBookings.length ? "" : "<p>No bookings found.</p>";
+    myBookings.forEach(b => {
+        const isC = b.status === 'Cancelled';
+        list.innerHTML += `
+        <div class="booking-ticket" style="opacity:${isC ? '0.6' : '1'}">
+            <div class="ticket-visual"><img src="${b.img}"></div>
+            <div class="ticket-content">
+                <span style="font-weight:800; color:var(--text-muted); font-size:11px;">BOOKING ID: ${b.id} | GUEST: ${b.user}</span>
+                <h2 style="margin:5px 0;">${b.hall}</h2>
+                <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+                    <div>
+                        <div style="font-size:20px; font-weight:800;">₹${b.total.toLocaleString()}</div>
+                        ${!isC ? `<button class="btn-cancel" onclick="cancelBooking('${b.id}')">Cancel Booking</button>` : ''}
+                    </div>
+                    <span style="color:${isC ? 'var(--danger)' : 'var(--success)'}; font-weight:800;">● ${b.status}</span>
+                </div>
+            </div>
+        </div>`;
+    });
+}
+
+update();
+</script>
+</body>
+</html>

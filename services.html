@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | Kalyanam Hub</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #E5C76B;
+            --bg: #080808;
+            --card-bg: #121212;
+            --border: rgba(212, 175, 55, 0.15);
+            --text-main: #FFFFFF;
+            --text-dim: #A0A0A0;
+            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background: var(--bg); 
+            color: var(--text-main); 
+            font-family: 'Inter', sans-serif; 
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- MODERN NAVIGATION --- */
+        nav {
+            height: 70px; display: flex; align-items: center;
+            background: rgba(8, 8, 8, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+        }
+        .nav-inner { width: 100%; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 25px; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--gold); text-decoration: none; font-weight: 700; letter-spacing: 1px; }
+        .nav-links a { margin-left: 25px; text-decoration: none; color: var(--text-dim); font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; transition: var(--transition); }
+        .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+
+        /* --- HEADER SECTION --- */
+        .header { padding: 180px 0 100px; text-align: center; background: radial-gradient(circle at center, #1a1a1a 0%, #080808 100%); }
+        .header h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 6vw, 64px); margin-bottom: 20px; font-weight: 700; }
+        .header p { color: var(--text-dim); font-size: 18px; max-width: 600px; margin: 0 auto; font-weight: 300; letter-spacing: 0.5px; }
+
+        /* --- SERVICE GRID --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 25px; }
+        .service-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; padding-bottom: 120px; }
+        
+        .service-card { 
+            background: var(--card-bg); 
+            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.03);
+            overflow: hidden; 
+            position: relative;
+            transition: var(--transition);
+            opacity: 0; /* For scroll animation */
+            transform: translateY(30px);
+        }
+        .service-card.reveal { opacity: 1; transform: translateY(0); }
+        .service-card:hover { border-color: var(--gold); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+
+        .img-container { width: 100%; height: 400px; overflow: hidden; position: relative; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.5s ease; filter: grayscale(20%); }
+        .service-card:hover img { transform: scale(1.1); filter: grayscale(0%); }
+
+        .service-content { padding: 45px; }
+        .service-content h3 { font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 15px; color: #fff; }
+        .service-content p { color: var(--text-dim); font-size: 15px; line-height: 1.7; margin-bottom: 30px; font-weight: 300; min-height: 75px; }
+
+        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px; }
+        .price-text { font-size: 14px; color: var(--gold); font-weight: 600; letter-spacing: 1px; }
+
+        .cta-link { 
+            color: #fff; text-decoration: none; font-size: 13px; font-weight: 600; 
+            text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; gap: 8px;
+            transition: var(--transition);
+        }
+        .cta-link i { font-size: 10px; transition: var(--transition); }
+        .cta-link:hover { color: var(--gold); }
+        .cta-link:hover i { transform: translateX(5px); }
+
+        /* --- FOOTER --- */
+        footer { padding: 80px 0; background: #050505; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--gold); margin-bottom: 20px; display: block; text-decoration: none; }
+        .footer-text { color: #555; font-size: 11px; text-transform: uppercase; letter-spacing: 3px; }
+
+        /* --- WHATSAPP FIXED --- */
+        .whatsapp-float { 
+            position: fixed; bottom: 40px; right: 40px; 
+            background: #25D366; color: #fff; 
+            width: 55px; height: 55px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 24px; text-decoration: none; z-index: 2000;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+            transition: var(--transition);
+        }
+        .whatsapp-float:hover { transform: scale(1.1) rotate(10deg); }
+
+        @media (max-width: 900px) { 
+            .service-grid { grid-template-columns: 1fr; gap: 30px; } 
+            .header h1 { font-size: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="index.html" class="logo">KALYANAM HUB</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="services.html" class="active">Services</a>
+            <a href="venues.html">Venues</a>
+            <a href="contactus.html">Contact</a>
+        </div>
+    </div>
+</nav>
+
+<header class="header">
+    <div class="container">
+        <h1>Bespoke Services</h1>
+        <p>Premium wedding infrastructure and management services tailored for the elite celebrations of Kakinada.</p>
+    </div>
+</header>
+
+<section class="container">
+    <div class="service-grid">
+        
+        <div class="service-card">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&q=80&w=1200" alt="Banquet Hall">
+            </div>
+            <div class="service-content">
+                <h3>Banquet Halls</h3>
+                <p>Curated access to the region's most prestigious AC convention centers and luxury wedding lawns with transparent pricing.</p>
+                <div class="card-footer">
+                    <span class="price-text">STARTS FROM ₹50,000</span>
+                    <a href="venues.html" class="cta-link">Explore <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-card">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=1200" alt="Decoration">
+            </div>
+            <div class="service-content">
+                <h3>Designer Decor</h3>
+                <p>Architectural stage designs and floral installations crafted by the finest artisans to create an unforgettable atmosphere.</p>
+                <div class="card-footer">
+                    <span class="price-text">STARTS FROM ₹25,000</span>
+                    <a href="decoration.html" class="cta-link">View Portfolio <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-card">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&q=80&w=1200" alt="Catering">
+            </div>
+            <div class="service-content">
+                <h3>Elite Catering</h3>
+                <p>A culinary journey featuring authentic flavors and international cuisines, managed with military-grade hygiene and service standards.</p>
+                <div class="card-footer">
+                    <span class="price-text">STARTS FROM ₹450 / PLATE</span>
+                    <a href="catering.html" class="cta-link">Menu <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-card">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&q=80&w=1200" alt="Photography">
+            </div>
+            <div class="service-content">
+                <h3>Cinematography</h3>
+                <p>Preserving your legacy with 4K cinematic storytelling. Our visual teams capture the soul of your celebration with artistic precision.</p>
+                <div class="card-footer">
+                    <span class="price-text">STARTS FROM ₹40,000</span>
+                    <a href="photography.html" class="cta-link">Packages <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+    <a href="homee.html" class="footer-logo">KALYANAM HUB</a>
+    <p class="footer-text">The Gold Standard in Event Brokerage</p>
+</footer>
+
+<a href="https://wa.me/919390653955" class="whatsapp-float">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<script>
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.service-card').forEach(card => {
+        observer.observe(card);
+    });
+</script>
+
+</body>
+</html>
