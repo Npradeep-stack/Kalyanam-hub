@@ -27,9 +27,10 @@
             background-color: var(--bg);
             color: var(--text);
             font-family: 'Plus Jakarta Sans', sans-serif;
-            line-height: 1.5;
+            line-height: var(--phi);
             overflow-x: hidden;
-            padding-bottom: 110px; /* Space for the bottom nav */
+            /* Extra bottom padding to ensure content is never blocked by the Action Dock */
+            padding-bottom: 140px; 
         }
 
         #scrollProgress {
@@ -40,122 +41,101 @@
 
         .container { width: 90%; max-width: 1400px; margin: 0 auto; }
 
-        /* --- NAVIGATION --- */
+        /* --- 1. REFINED HEADER --- */
         header.main-nav {
-            position: fixed; width: 100%; top: 0; z-index: 8000;
+            position: sticky; top: 0; z-index: 8000;
             background: var(--glass); backdrop-filter: blur(30px);
             height: 70px; border-bottom: 1px solid var(--border);
-            display: flex; align-items: center;
+            display: flex; align-items: center; justify-content: center;
         }
 
         .logo { 
             font-family: 'Playfair Display', serif; 
-            font-size: 20px; color: var(--gold); 
+            font-size: 22px; color: var(--gold); 
             text-decoration: none; font-weight: 900; letter-spacing: -0.5px;
         }
 
-        .desktop-nav { display: none; }
-
-        /* --- MOBILE APP DOCK (PINTEREST STYLE) --- */
-        .mobile-app-nav {
+        /* --- 2. THE BIG THUMB CTA & DOCK --- */
+        .mobile-action-dock {
             position: fixed; bottom: 0; left: 0; right: 0;
-            height: 85px; background: rgba(5, 7, 10, 0.98);
+            height: 95px; background: rgba(5, 7, 10, 0.98);
             backdrop-filter: blur(40px); border-top: 1px solid var(--border);
-            z-index: 9999; display: flex; justify-content: space-around;
+            z-index: 9999; display: flex; justify-content: space-around; align-items: center;
             padding-bottom: env(safe-area-inset-bottom);
         }
 
-        .nav-tab {
+        .dock-item {
             flex: 1; display: flex; flex-direction: column;
             align-items: center; justify-content: center;
             text-decoration: none; color: var(--dim); gap: 4px;
         }
 
-        .nav-tab i { font-size: 22px; transition: 0.3s; }
-        .nav-tab span { font-size: 10px; font-weight: 700; text-transform: uppercase; }
-        .nav-tab.active { color: var(--gold); }
+        .dock-item i { font-size: 22px; transition: 0.3s; }
+        .dock-item span { font-size: 10px; font-weight: 700; text-transform: uppercase; }
+        .dock-item.active { color: var(--gold); }
 
-        /* --- HERO SECTION (FIXED HEIGHT) --- */
+        /* THE PRIMARY ACTION (CENTRAL BUTTON) */
+        .thumb-cta-center {
+            position: relative; top: -30px; /* Floats high for perfect thumb reach */
+            background: var(--gold); color: #000;
+            width: 70px; height: 70px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4);
+            border: 6px solid var(--bg);
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .thumb-cta-center:active { transform: scale(0.9); }
+        .thumb-cta-center i { font-size: 28px; }
+
+        /* --- 3. MOBILE-FIRST HERO --- */
         .hero {
-            padding: 120px 0 60px;
-            background: linear-gradient(rgba(5,7,10,0.85), rgba(5,7,10,0.6)),
-                        url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&q=80&w=2000') center/cover;
-            text-align: center;
+            padding: 50px 0 30px; text-align: center;
+            background: linear-gradient(rgba(5,7,10,0.7), rgba(5,7,10,0.7)),
+                        url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&q=80&w=1000') center/cover;
         }
 
-        .hero-content h1 { 
-            font-family: 'Playfair Display', serif; 
-            font-size: 36px; /* Optimized mobile font size */
-            line-height: 1.1; 
-            margin: 15px 0; 
-            font-weight: 900; 
-        }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 34px; line-height: 1.2; margin: 15px 0; }
+        .hero p { font-size: 14px; color: var(--dim); max-width: 300px; margin: 0 auto; }
+
+        /* --- 4. TAPPABLE CARDS --- */
+        .showcase { padding: 30px 0; display: flex; flex-direction: column; gap: 30px; }
         
-        .hero-content p { 
-            font-size: 14px; 
-            color: var(--dim); 
-            max-width: 500px; 
-            margin: 0 auto 2rem; 
-        }
-
-        .btn-gold {
-            display: inline-block; width: 100%; max-width: 280px;
-            background: var(--gold); color: var(--bg);
-            padding: 16px; text-decoration: none; font-size: 11px;
-            letter-spacing: 2px; font-weight: 800; text-transform: uppercase; border-radius: 12px;
-        }
-
-        /* --- KPI STRIP --- */
-        .kpi-strip { padding: 3rem 0; border-bottom: 1px solid var(--border); }
-        .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-        .kpi-item { border-left: 1px solid var(--gold); padding-left: 12px; }
-        .kpi-item h2 { color: var(--gold); font-family: 'Playfair Display'; font-size: 24px; }
-        .kpi-item p { font-size: 9px; text-transform: uppercase; color: var(--dim); letter-spacing: 1px; }
-
-        /* --- SHOWCASE (VERTICAL) --- */
-        .showcase { padding: 30px 0; display: flex; flex-direction: column; gap: 25px; }
         .venue-card {
-            position: relative; width: 100%; border-radius: 20px; overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            display: block; text-decoration: none; color: inherit;
+            position: relative; width: 100%; border-radius: 24px; overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transition: transform 0.2s ease;
         }
-        .venue-card img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; }
-        .v-badge { position: absolute; top: 15px; left: 15px; background: #FFF; color: var(--success); padding: 6px 12px; border-radius: 50px; font-size: 9px; font-weight: 800; z-index: 10; }
+        .venue-card:active { transform: scale(0.97); }
+
+        .venue-card img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
         
         .venue-overlay {
-            position: absolute; inset: 0; padding: 1.2rem;
-            background: linear-gradient(to top, rgba(5,7,10,1) 5%, transparent 60%);
+            position: absolute; inset: 0; padding: 1.5rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 5%, transparent 60%);
             display: flex; flex-direction: column; justify-content: flex-end;
         }
-        .venue-overlay h3 { font-family: 'Playfair Display'; font-size: 20px; margin-bottom: 4px; }
+
+        .venue-overlay h3 { font-family: 'Playfair Display'; font-size: 22px; margin-bottom: 5px; }
         .venue-overlay p { font-size: 13px; color: var(--dim); }
+        
+        .v-badge { position: absolute; top: 20px; left: 20px; background: #FFF; color: var(--success); padding: 6px 14px; border-radius: 50px; font-size: 9px; font-weight: 800; }
 
-        /* --- FEATURE HUB --- */
-        .feature-grid { display: grid; grid-template-columns: 1fr; gap: 15px; padding: 2rem 0; }
-        .feature-item { background: #0D111A; padding: 1.8rem; border-radius: 16px; border: 1px solid var(--border); }
-        .feature-item i { color: var(--gold); font-size: 24px; margin-bottom: 12px; display: block; }
-        .feature-item h4 { font-size: 18px; margin-bottom: 8px; font-family: 'Playfair Display'; }
-        .feature-item p { color: var(--dim); font-size: 13px; }
+        /* --- 5. COMPACT KPI WIDGETS --- */
+        .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding-bottom: 30px; }
+        .kpi-item { background: #0D111A; padding: 20px; border-radius: 16px; border-left: 4px solid var(--gold); }
+        .kpi-item h2 { color: var(--gold); font-size: 22px; margin-bottom: 2px; }
+        .kpi-item p { font-size: 10px; text-transform: uppercase; color: var(--dim); font-weight: 700; letter-spacing: 1px; }
 
-        /* --- FOOTER --- */
-        footer { padding: 4rem 0; border-top: 1px solid var(--border); text-align: center; }
-
-        /* --- DESKTOP ADAPTATION --- */
+        /* --- DESKTOP ADJUSTMENTS --- */
         @media (min-width: 1024px) {
-            header .logo { margin: 0; }
-            .desktop-nav { display: flex; align-items: center; gap: 2.5rem; }
-            .desktop-nav a { text-decoration: none; color: var(--dim); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
-            .mobile-app-nav { display: none; }
+            .mobile-action-dock { display: none; }
             body { padding-bottom: 0; }
-            
-            .hero { height: 90vh; display: flex; align-items: center; text-align: left; padding: 0; }
-            .hero-content h1 { font-size: 72px; }
-            .hero-content p { margin: 0 0 2.5rem 0; font-size: 18px; }
-            .btn-gold { width: auto; padding: 20px 50px; }
-            
+            .hero { padding: 150px 0; }
+            .hero h1 { font-size: 72px; }
             .kpi-grid { grid-template-columns: repeat(4, 1fr); }
             .showcase { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
             .venue-card img { aspect-ratio: 16/10; }
-            .feature-grid { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
@@ -164,92 +144,60 @@
 <div id="scrollProgress"></div>
 
 <header class="main-nav">
-    <div class="container" style="display:flex; justify-content:space-between; align-items:center; width:100%;">
-        <a href="index.html" class="logo">KALYANAM HUB</a>
-        <nav class="desktop-nav">
-            <a href="index.html">Home</a>
-            <a href="services.html">Services</a>
-            <a href="venues.html">Venues</a>
-            <a href="contact.html">Contact</a>
-        </nav>
-    </div>
+    <a href="index.html" class="logo">KALYANAM HUB</a>
 </header>
 
-<nav class="mobile-app-nav">
-    <a href="index.html" class="nav-tab active"><i class="fa-solid fa-house"></i><span>Home</span></a>
-    <a href="services.html" class="nav-tab"><i class="fa-solid fa-crown"></i><span>Services</span></a>
-    <a href="venues.html" class="nav-tab"><i class="fa-solid fa-hotel"></i><span>Venues</span></a>
-    <a href="contact.html" class="nav-tab"><i class="fa-solid fa-headset"></i><span>Contact</span></a>
+<nav class="mobile-action-dock">
+    <a href="index.html" class="dock-item active"><i class="fa-solid fa-house"></i><span>Home</span></a>
+    <a href="venues.html" class="dock-item"><i class="fa-solid fa-hotel"></i><span>Venues</span></a>
+    
+    <a href="booking.html" class="thumb-cta-center">
+        <i class="fa-solid fa-calendar-check"></i>
+    </a>
+    
+    <a href="services.html" class="dock-item"><i class="fa-solid fa-crown"></i><span>Services</span></a>
+    <a href="contact.html" class="dock-item"><i class="fa-solid fa-headset"></i><span>Support</span></a>
 </nav>
 
 <section class="hero">
     <div class="container">
-        <div class="hero-content">
-            <span style="color:var(--gold); letter-spacing:4px; font-size:10px; font-weight:800; text-transform:uppercase;">The Gold Standard 2026</span>
-            <h1>Grand Venues.<br>Verified Assets.</h1>
-            <p>Direct access to luxury spaces with absolute transparency and legacy-grade management.</p>
-            <a href="#explore" class="btn-gold">Explore Collection <i class="fa-solid fa-arrow-right" style="margin-left:10px;"></i></a>
-        </div>
+        <span style="color:var(--gold); letter-spacing:3px; font-size:10px; font-weight:800; text-transform:uppercase;">Luxury Brokerage 2026</span>
+        <h1>Grand Venues.<br>Verified Assets.</h1>
+        <p>Human-vetted luxury spaces for your most important milestones.</p>
     </div>
 </section>
 
-<section class="kpi-strip">
-    <div class="container kpi-grid">
+<main class="container">
+    <div class="kpi-grid">
         <div class="kpi-item"><h2>Peak</h2><p>Multipliers</p></div>
-        <div class="kpi-item"><h2>5%</h2><p>Grace Penalty</p></div>
-        <div class="kpi-item"><h2>100%</h2><p>Verified Assets</p></div>
+        <div class="kpi-item"><h2>5%</h2><p>Grace Fee</p></div>
+        <div class="kpi-item"><h2>100%</h2><p>Verified</p></div>
         <div class="kpi-item"><h2>2026</h2><p>Certified</p></div>
     </div>
-</section>
 
-<main class="container" id="explore">
     <div class="showcase">
-        <div class="venue-card">
+        <a href="venue-detail.html" class="venue-card">
             <div class="v-badge"><i class="fa-solid fa-circle-check"></i> VERIFIED</div>
-            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1200" alt="Vedic Heritage Estates">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1000" alt="Venue">
             <div class="venue-overlay">
                 <h3>Vedic Heritage Estates</h3>
-                <p>Architectural landmarks for high-status weddings.</p>
+                <p>Managed Architectural Landmarks</p>
             </div>
-        </div>
+        </a>
 
-        <div class="venue-card">
+        <a href="venue-detail.html" class="venue-card">
             <div class="v-badge"><i class="fa-solid fa-circle-check"></i> VERIFIED</div>
-            <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=1200" alt="The Grace Protocol">
+            <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=1000" alt="Venue">
             <div class="venue-overlay">
-                <h3>The Grace Protocol</h3>
-                <p>Verified operational integrity for every event.</p>
+                <h3>The Grace Pavilion</h3>
+                <p>Legacy Grade Management</p>
             </div>
-        </div>
-    </div>
-
-    <div class="feature-grid">
-        <div class="feature-item">
-            <i class="fa-solid fa-shield-halved"></i>
-            <h4>Security Protocol</h4>
-            <p>Management for VVIP movements and private gatherings.</p>
-        </div>
-        <div class="feature-item">
-            <i class="fa-solid fa-bolt-lightning"></i>
-            <h4>Instant Concierge</h4>
-            <p>Direct access to dedicated managers available 24/7.</p>
-        </div>
-        <div class="feature-item">
-            <i class="fa-solid fa-gem"></i>
-            <h4>1% Curated</h4>
-            <p>Only top-tier architectural landmarks qualify for listing.</p>
-        </div>
+        </a>
     </div>
 </main>
 
-<footer>
-    <div class="container">
-        <div class="logo" style="margin-bottom: 20px;">KALYANAM HUB</div>
-        <p style="color: var(--dim); font-size: 13px; max-width: 300px; margin: 0 auto 20px;">Defining the future of luxury venue brokerage through excellence.</p>
-        <div style="color: #475569; font-size: 9px; letter-spacing: 2px; font-weight: 700;">
-            © 2026 KALYANAM HUB. PRECISION ENGINEERED.
-        </div>
-    </div>
+<footer style="padding: 60px 0; text-align: center; border-top: 1px solid var(--border); opacity: 0.5;">
+    <p style="font-size: 10px; letter-spacing: 2px;">© 2026 KALYANAM HUB PRO</p>
 </footer>
 
 <script>
