@@ -19,9 +19,6 @@
             --success: #22c55e;
             --glass: rgba(10, 15, 25, 0.94);
             --border: rgba(255, 255, 255, 0.08);
-            
-            --h1: clamp(42px, 8vw, 4.236rem);
-            --h2: clamp(26px, 5vw, 2.618rem);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -34,191 +31,123 @@
             overflow-x: hidden;
         }
 
-        /* 1. SCROLL PROGRESS */
         #scrollProgress {
             position: fixed; top: 0; left: 0; width: 0%; height: 3px;
             background: linear-gradient(to right, var(--gold), #FFF);
             z-index: 9999;
         }
 
-        /* 2. HEADER */
+        .container { width: 92%; max-width: 1400px; margin: 0 auto; }
+
+        /* --- NAVIGATION --- */
         header.main-nav {
             position: fixed; width: 100%; top: 0; z-index: 8000;
             background: var(--glass); backdrop-filter: blur(30px);
-            height: 80px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-        }
-
-        .container { width: 90%; max-width: 1400px; margin: 0 auto; }
-        
-        .nav-inner { 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            width: 100%; 
+            height: 70px; border-bottom: 1px solid var(--border);
+            display: flex; align-items: center;
         }
 
         .logo { 
             font-family: 'Playfair Display', serif; 
-            font-size: 24px; color: var(--gold); 
+            font-size: 22px; color: var(--gold); 
             text-decoration: none; font-weight: 900; letter-spacing: -1px;
-            display: flex;
-            align-items: center;
-            line-height: 1;
-            white-space: nowrap;
         }
 
-        .desktop-nav { 
-            display: flex;
-            align-items: center;
-            gap: 2.5rem;
-        }
-
+        .desktop-nav { display: flex; align-items: center; gap: 2.5rem; }
         .desktop-nav a {
             text-decoration: none; color: var(--dim);
             font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
             transition: 0.3s ease;
-            line-height: 1;
         }
         
-        .desktop-nav a:hover { color: var(--gold); }
-
-        /* 3. MOBILE APP DOCK (MakeMyTrip Style) */
-        .mobile-dock {
-            display: none; 
-            position: fixed; 
-            bottom: 0; 
-            left: 0; 
-            right: 0;
-            width: 100%;
-            height: 85px; 
-            background: var(--glass); 
-            backdrop-filter: blur(40px);
-            border-top: 1px solid var(--border); 
-            z-index: 9000; 
-            justify-content: space-around;
-            align-items: center; 
+        /* --- MOBILE APP DOCK (PINTEREST STYLE) --- */
+        .mobile-app-nav {
+            display: none; position: fixed; bottom: 0; left: 0; right: 0;
+            height: 90px; background: rgba(5, 7, 10, 0.98);
+            backdrop-filter: blur(40px); border-top: 1px solid var(--border);
+            z-index: 9999; justify-content: space-around;
             padding-bottom: env(safe-area-inset-bottom);
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
         }
 
-        .dock-item { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
-            color: var(--dim); 
-            text-decoration: none; 
-            font-size: 11px; 
-            font-weight: 600; 
-            flex: 1; 
-            height: 100%;
-            gap: 4px;
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .nav-tab {
+            flex: 1; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-decoration: none; color: var(--dim); gap: 4px;
         }
 
-        .dock-item i { 
-            font-size: 20px; 
-            padding: 8px 16px;
-            border-radius: 20px;
-            transition: 0.3s;
-        }
+        .nav-tab i { font-size: 24px; transition: 0.3s; }
+        .nav-tab span { font-size: 10px; font-weight: 700; text-transform: uppercase; }
+        .nav-tab.active { color: var(--gold); }
 
-        .dock-item.active { color: var(--gold); }
-        .dock-item.active i { background: rgba(212, 175, 55, 0.15); color: var(--gold); }
-
-        /* 4. HERO */
+        /* --- HERO SECTION --- */
         .hero {
-            height: 100vh; display: flex; align-items: center; 
+            height: 90vh; display: flex; align-items: center; 
             background: linear-gradient(rgba(5,7,10,0.8), rgba(5,7,10,0.4)),
                         url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&q=80&w=2000') center/cover;
+            text-align: center;
         }
 
-        .hero-content h1 { font-family: 'Playfair Display', serif; font-size: var(--h1); line-height: 1.1; margin: 20px 0; font-weight: 900; }
-        .hero-content p { font-size: 1.2rem; color: var(--dim); max-width: 600px; margin-bottom: 2rem; font-weight: 300; }
+        .hero-content h1 { font-family: 'Playfair Display', serif; font-size: clamp(40px, 10vw, 80px); line-height: 1.1; margin: 20px 0; font-weight: 900; }
+        .hero-content p { font-size: 1.1rem; color: var(--dim); max-width: 600px; margin: 0 auto 2.5rem; font-weight: 300; }
 
         .btn-gold {
-            display: inline-flex; align-items: center; background: var(--gold); color: var(--bg);
-            padding: 18px 45px; text-decoration: none; font-size: 12px;
-            letter-spacing: 3px; font-weight: 800; text-transform: uppercase; border-radius: 4px;
-            transition: 0.3s ease;
+            display: block; width: 100%; max-width: 320px; margin: 0 auto;
+            background: var(--gold); color: var(--bg);
+            padding: 20px; text-decoration: none; font-size: 12px;
+            letter-spacing: 3px; font-weight: 800; text-transform: uppercase; border-radius: 12px;
         }
-        .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2); }
 
-        /* 5. KPI STRIP */
-        .kpi-strip { background: #080A10; padding: 3rem 0; border-bottom: 1px solid var(--border); }
-        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 2rem; }
-        .kpi-item { border-left: 1px solid var(--gold); padding-left: 20px; }
-        .kpi-item h2 { color: var(--gold); font-family: 'Playfair Display'; font-size: 38px; }
-        .kpi-item p { font-size: 10px; text-transform: uppercase; color: var(--dim); letter-spacing: 2px; font-weight: 700; }
+        /* --- KPI STRIP --- */
+        .kpi-strip { background: #080A10; padding: 4rem 0; border-bottom: 1px solid var(--border); }
+        .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        .kpi-item { border-left: 1px solid var(--gold); padding-left: 15px; }
+        .kpi-item h2 { color: var(--gold); font-family: 'Playfair Display'; font-size: 32px; }
+        .kpi-item p { font-size: 9px; text-transform: uppercase; color: var(--dim); letter-spacing: 2px; font-weight: 700; }
 
-        /* 6. SHOWCASE */
-        .showcase { padding: 4rem 0; }
+        /* --- SHOWCASE (VERTICAL CARDS) --- */
+        .showcase { padding: 3rem 0; display: flex; flex-direction: column; gap: 40px; }
         .venue-card {
-            position: relative; width: 100%; aspect-ratio: 1.618 / 1; 
-            border-radius: 20px; overflow: hidden; margin-bottom: 2rem;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+            position: relative; width: 100%; border-radius: 24px; overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
         }
-        .venue-card img { width: 100%; height: 100%; object-fit: cover; transition: 2s ease; }
-        .venue-card:hover img { transform: scale(1.1); }
-        .v-badge { position: absolute; top: 30px; left: 30px; background: #FFF; color: var(--success); padding: 8px 18px; border-radius: 50px; font-size: 10px; font-weight: 800; z-index: 10; }
+        .venue-card img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; }
+        .v-badge { position: absolute; top: 20px; left: 20px; background: #FFF; color: var(--success); padding: 8px 16px; border-radius: 50px; font-size: 10px; font-weight: 800; z-index: 10; }
         
         .venue-overlay {
             position: absolute; inset: 0; padding: 2rem;
-            background: linear-gradient(to top, rgba(5,7,10,1) 0%, transparent 80%);
+            background: linear-gradient(to top, rgba(5,7,10,1) 10%, transparent 70%);
             display: flex; flex-direction: column; justify-content: flex-end;
         }
-        .venue-overlay h3 { font-family: 'Playfair Display'; font-size: var(--h2); margin-bottom: 10px; }
+        .venue-overlay h3 { font-family: 'Playfair Display'; font-size: 2rem; margin-bottom: 5px; }
 
-        /* 7. FEATURE HUB */
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding-bottom: 4rem; }
+        /* --- FEATURE HUB --- */
+        .feature-grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 4rem 0; }
         .feature-item { 
-            background: #0D111A; 
-            padding: 2.5rem; 
-            border-radius: 20px; 
-            border: 1px solid var(--border); 
-            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            background: #0D111A; padding: 2rem; border-radius: 20px; border: 1px solid var(--border); 
         }
-        .feature-item:hover { border-color: var(--gold); transform: translateY(-8px); background: #121826; }
-        .feature-item i { color: var(--gold); font-size: 32px; margin-bottom: 20px; display: block; }
-        .feature-item h4 { font-size: 22px; margin-bottom: 15px; font-family: 'Playfair Display'; }
-        .feature-item p { color: var(--dim); font-size: 15px; }
+        .feature-item i { color: var(--gold); font-size: 28px; margin-bottom: 15px; display: block; }
+        .feature-item h4 { font-size: 20px; margin-bottom: 10px; font-family: 'Playfair Display'; }
+        .feature-item p { color: var(--dim); font-size: 14px; }
 
-        /* 8. FOOTER */
-        footer { background: #020408; padding: 5rem 0 120px; border-top: 1px solid var(--border); }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; }
-        footer h4 { color: var(--gold); margin-bottom: 25px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
-        footer a { color: var(--dim); text-decoration: none; display: block; margin-bottom: 15px; font-size: 15px; transition: 0.3s; }
-        footer a:hover { color: var(--gold); }
-
-        .wa-float { 
-            position: fixed; bottom: 40px; right: 30px; background: #25D366; 
-            width: 65px; height: 65px; border-radius: 22px; display: flex; 
-            align-items: center; justify-content: center; font-size: 30px; 
-            color: white; z-index: 5000; box-shadow: 0 20px 40px rgba(37,211,102,0.4); 
-            text-decoration: none; 
-        }
+        /* --- FOOTER --- */
+        footer { background: #020408; padding: 5rem 0 140px; border-top: 1px solid var(--border); text-align: center; }
 
         /* --- RESPONSIVE LOGIC --- */
         @media (max-width: 1024px) {
             .desktop-nav { display: none; }
-            .mobile-dock { display: flex; }
-            body { padding-bottom: 100px; }
-            .hero { text-align: center; }
-            .hero-content { margin: 0 auto; }
-            
+            .mobile-app-nav { display: flex; }
             header .logo { position: absolute; left: 50%; transform: translateX(-50%); }
-            .wa-float { display: none !important; }
-
-            .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
-            .footer-logo-section { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-            .venue-card { aspect-ratio: 1 / 1.2; }
+            body { padding-bottom: 90px; }
         }
 
-        @media (max-width: 600px) {
-            .kpi-grid { grid-template-columns: 1fr 1fr; }
+        @media (min-width: 1024px) {
+            .hero { text-align: left; }
+            .hero-content p { margin: 0 0 2.5rem 0; }
+            .btn-gold { margin: 0; }
+            .kpi-grid { grid-template-columns: repeat(4, 1fr); }
+            .showcase { display: grid; grid-template-columns: repeat(2, 1fr); }
+            .venue-card img { aspect-ratio: 16/10; }
+            .feature-grid { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
@@ -227,7 +156,7 @@
 <div id="scrollProgress"></div>
 
 <header class="main-nav">
-    <div class="container nav-inner">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; width:100%;">
         <a href="index.html" class="logo">KALYANAM HUB</a>
         <nav class="desktop-nav">
             <a href="index.html">Home</a>
@@ -238,11 +167,11 @@
     </div>
 </header>
 
-<nav class="mobile-dock">
-    <a href="index.html" class="dock-item active"><i class="fa-solid fa-house"></i><span>Home</span></a>
-    <a href="services.html" class="dock-item"><i class="fa-solid fa-crown"></i><span>Services</span></a>
-    <a href="venues.html" class="dock-item"><i class="fa-solid fa-hotel"></i><span>Venues</span></a>
-    <a href="contact.html" class="dock-item"><i class="fa-solid fa-headset"></i><span>Contact</span></a>
+<nav class="mobile-app-nav">
+    <a href="index.html" class="nav-tab active"><i class="fa-solid fa-house"></i><span>Home</span></a>
+    <a href="services.html" class="nav-tab"><i class="fa-solid fa-crown"></i><span>Services</span></a>
+    <a href="venues.html" class="nav-tab"><i class="fa-solid fa-hotel"></i><span>Venues</span></a>
+    <a href="contact.html" class="nav-tab"><i class="fa-solid fa-headset"></i><span>Contact</span></a>
 </nav>
 
 <section class="hero">
@@ -250,7 +179,7 @@
         <div class="hero-content">
             <span style="color:var(--gold); letter-spacing:6px; font-size:11px; font-weight:800; text-transform:uppercase;">The Gold Standard 2026</span>
             <h1>Grand Venues.<br>Verified Assets.</h1>
-            <p>Direct access to human-vetted luxury spaces with absolute pricing transparency and legacy-grade management.</p>
+            <p>Direct access to luxury spaces with absolute transparency and legacy-grade management.</p>
             <a href="#explore" class="btn-gold">Explore Collection <i class="fa-solid fa-arrow-right" style="margin-left:15px;"></i></a>
         </div>
     </div>
@@ -272,7 +201,7 @@
             <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1200" alt="Palatial Estate">
             <div class="venue-overlay">
                 <h3>Vedic Heritage Estates</h3>
-                <p>Architectural landmarks optimized for high-status weddings and gatherings.</p>
+                <p>Architectural landmarks optimized for high-status weddings.</p>
             </div>
         </div>
 
@@ -281,7 +210,7 @@
             <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=1200" alt="Grand Pavilion">
             <div class="venue-overlay">
                 <h3>The Grace Protocol</h3>
-                <p>Ensuring operational integrity through verified 2026 asset management.</p>
+                <p>Operational integrity through verified asset management.</p>
             </div>
         </div>
     </div>
@@ -307,38 +236,13 @@
 
 <footer>
     <div class="container">
-        <div class="footer-grid">
-            <div class="footer-logo-section">
-                <div class="logo" style="margin-bottom: 30px;">KALYANAM HUB</div>
-                <p style="color: var(--dim); font-size: 15px; max-width: 350px;">Defining the future of luxury venue brokerage through precision and excellence.</p>
-            </div>
-            <div>
-                <h4>Explore</h4>
-                <a href="index.html">Home</a>
-                <a href="services.html">Services</a>
-                <a href="venues.html">Venues</a>
-            </div>
-            <div>
-                <h4>Trust</h4>
-                <a href="#">Grace Protocol</a>
-                <a href="#">Privacy Policy</a>
-                <a href="contact.html">Contact Hub</a>
-            </div>
-            <div>
-                <h4>Social</h4>
-                <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
-                <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
-            </div>
-        </div>
-        <div style="margin-top: 100px; text-align: center; color: #475569; font-size: 10px; letter-spacing: 3px; font-weight: 700;">
+        <div class="logo" style="margin-bottom: 30px;">KALYANAM HUB</div>
+        <p style="color: var(--dim); font-size: 15px; max-width: 350px; margin: 0 auto 30px;">Defining the future of luxury venue brokerage through excellence.</p>
+        <div style="color: #475569; font-size: 10px; letter-spacing: 3px; font-weight: 700;">
             © 2026 KALYANAM HUB. PRECISION ENGINEERED.
         </div>
     </div>
 </footer>
-
-<a href="https://wa.me/919390653955" class="wa-float" target="_blank">
-    <i class="fab fa-whatsapp"></i>
-</a>
 
 <script>
     window.onscroll = function() {
