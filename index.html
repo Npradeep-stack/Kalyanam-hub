@@ -27,8 +27,9 @@
             background-color: var(--bg);
             color: var(--text);
             font-family: 'Plus Jakarta Sans', sans-serif;
-            line-height: var(--phi);
+            line-height: 1.5;
             overflow-x: hidden;
+            padding-bottom: 110px; /* Space for the bottom nav */
         }
 
         #scrollProgress {
@@ -37,7 +38,7 @@
             z-index: 9999;
         }
 
-        .container { width: 92%; max-width: 1400px; margin: 0 auto; }
+        .container { width: 90%; max-width: 1400px; margin: 0 auto; }
 
         /* --- NAVIGATION --- */
         header.main-nav {
@@ -49,23 +50,18 @@
 
         .logo { 
             font-family: 'Playfair Display', serif; 
-            font-size: 22px; color: var(--gold); 
-            text-decoration: none; font-weight: 900; letter-spacing: -1px;
+            font-size: 20px; color: var(--gold); 
+            text-decoration: none; font-weight: 900; letter-spacing: -0.5px;
         }
 
-        .desktop-nav { display: flex; align-items: center; gap: 2.5rem; }
-        .desktop-nav a {
-            text-decoration: none; color: var(--dim);
-            font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
-            transition: 0.3s ease;
-        }
-        
+        .desktop-nav { display: none; }
+
         /* --- MOBILE APP DOCK (PINTEREST STYLE) --- */
         .mobile-app-nav {
-            display: none; position: fixed; bottom: 0; left: 0; right: 0;
-            height: 90px; background: rgba(5, 7, 10, 0.98);
+            position: fixed; bottom: 0; left: 0; right: 0;
+            height: 85px; background: rgba(5, 7, 10, 0.98);
             backdrop-filter: blur(40px); border-top: 1px solid var(--border);
-            z-index: 9999; justify-content: space-around;
+            z-index: 9999; display: flex; justify-content: space-around;
             padding-bottom: env(safe-area-inset-bottom);
         }
 
@@ -75,77 +71,89 @@
             text-decoration: none; color: var(--dim); gap: 4px;
         }
 
-        .nav-tab i { font-size: 24px; transition: 0.3s; }
+        .nav-tab i { font-size: 22px; transition: 0.3s; }
         .nav-tab span { font-size: 10px; font-weight: 700; text-transform: uppercase; }
         .nav-tab.active { color: var(--gold); }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION (FIXED HEIGHT) --- */
         .hero {
-            height: 90vh; display: flex; align-items: center; 
-            background: linear-gradient(rgba(5,7,10,0.8), rgba(5,7,10,0.4)),
+            padding: 120px 0 60px;
+            background: linear-gradient(rgba(5,7,10,0.85), rgba(5,7,10,0.6)),
                         url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&q=80&w=2000') center/cover;
             text-align: center;
         }
 
-        .hero-content h1 { font-family: 'Playfair Display', serif; font-size: clamp(40px, 10vw, 80px); line-height: 1.1; margin: 20px 0; font-weight: 900; }
-        .hero-content p { font-size: 1.1rem; color: var(--dim); max-width: 600px; margin: 0 auto 2.5rem; font-weight: 300; }
+        .hero-content h1 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 36px; /* Optimized mobile font size */
+            line-height: 1.1; 
+            margin: 15px 0; 
+            font-weight: 900; 
+        }
+        
+        .hero-content p { 
+            font-size: 14px; 
+            color: var(--dim); 
+            max-width: 500px; 
+            margin: 0 auto 2rem; 
+        }
 
         .btn-gold {
-            display: block; width: 100%; max-width: 320px; margin: 0 auto;
+            display: inline-block; width: 100%; max-width: 280px;
             background: var(--gold); color: var(--bg);
-            padding: 20px; text-decoration: none; font-size: 12px;
-            letter-spacing: 3px; font-weight: 800; text-transform: uppercase; border-radius: 12px;
+            padding: 16px; text-decoration: none; font-size: 11px;
+            letter-spacing: 2px; font-weight: 800; text-transform: uppercase; border-radius: 12px;
         }
 
         /* --- KPI STRIP --- */
-        .kpi-strip { background: #080A10; padding: 4rem 0; border-bottom: 1px solid var(--border); }
-        .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-        .kpi-item { border-left: 1px solid var(--gold); padding-left: 15px; }
-        .kpi-item h2 { color: var(--gold); font-family: 'Playfair Display'; font-size: 32px; }
-        .kpi-item p { font-size: 9px; text-transform: uppercase; color: var(--dim); letter-spacing: 2px; font-weight: 700; }
+        .kpi-strip { padding: 3rem 0; border-bottom: 1px solid var(--border); }
+        .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .kpi-item { border-left: 1px solid var(--gold); padding-left: 12px; }
+        .kpi-item h2 { color: var(--gold); font-family: 'Playfair Display'; font-size: 24px; }
+        .kpi-item p { font-size: 9px; text-transform: uppercase; color: var(--dim); letter-spacing: 1px; }
 
-        /* --- SHOWCASE (VERTICAL CARDS) --- */
-        .showcase { padding: 3rem 0; display: flex; flex-direction: column; gap: 40px; }
+        /* --- SHOWCASE (VERTICAL) --- */
+        .showcase { padding: 30px 0; display: flex; flex-direction: column; gap: 25px; }
         .venue-card {
-            position: relative; width: 100%; border-radius: 24px; overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            position: relative; width: 100%; border-radius: 20px; overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
         .venue-card img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; }
-        .v-badge { position: absolute; top: 20px; left: 20px; background: #FFF; color: var(--success); padding: 8px 16px; border-radius: 50px; font-size: 10px; font-weight: 800; z-index: 10; }
+        .v-badge { position: absolute; top: 15px; left: 15px; background: #FFF; color: var(--success); padding: 6px 12px; border-radius: 50px; font-size: 9px; font-weight: 800; z-index: 10; }
         
         .venue-overlay {
-            position: absolute; inset: 0; padding: 2rem;
-            background: linear-gradient(to top, rgba(5,7,10,1) 10%, transparent 70%);
+            position: absolute; inset: 0; padding: 1.2rem;
+            background: linear-gradient(to top, rgba(5,7,10,1) 5%, transparent 60%);
             display: flex; flex-direction: column; justify-content: flex-end;
         }
-        .venue-overlay h3 { font-family: 'Playfair Display'; font-size: 2rem; margin-bottom: 5px; }
+        .venue-overlay h3 { font-family: 'Playfair Display'; font-size: 20px; margin-bottom: 4px; }
+        .venue-overlay p { font-size: 13px; color: var(--dim); }
 
         /* --- FEATURE HUB --- */
-        .feature-grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 4rem 0; }
-        .feature-item { 
-            background: #0D111A; padding: 2rem; border-radius: 20px; border: 1px solid var(--border); 
-        }
-        .feature-item i { color: var(--gold); font-size: 28px; margin-bottom: 15px; display: block; }
-        .feature-item h4 { font-size: 20px; margin-bottom: 10px; font-family: 'Playfair Display'; }
-        .feature-item p { color: var(--dim); font-size: 14px; }
+        .feature-grid { display: grid; grid-template-columns: 1fr; gap: 15px; padding: 2rem 0; }
+        .feature-item { background: #0D111A; padding: 1.8rem; border-radius: 16px; border: 1px solid var(--border); }
+        .feature-item i { color: var(--gold); font-size: 24px; margin-bottom: 12px; display: block; }
+        .feature-item h4 { font-size: 18px; margin-bottom: 8px; font-family: 'Playfair Display'; }
+        .feature-item p { color: var(--dim); font-size: 13px; }
 
         /* --- FOOTER --- */
-        footer { background: #020408; padding: 5rem 0 140px; border-top: 1px solid var(--border); text-align: center; }
+        footer { padding: 4rem 0; border-top: 1px solid var(--border); text-align: center; }
 
-        /* --- RESPONSIVE LOGIC --- */
-        @media (max-width: 1024px) {
-            .desktop-nav { display: none; }
-            .mobile-app-nav { display: flex; }
-            header .logo { position: absolute; left: 50%; transform: translateX(-50%); }
-            body { padding-bottom: 90px; }
-        }
-
+        /* --- DESKTOP ADAPTATION --- */
         @media (min-width: 1024px) {
-            .hero { text-align: left; }
-            .hero-content p { margin: 0 0 2.5rem 0; }
-            .btn-gold { margin: 0; }
+            header .logo { margin: 0; }
+            .desktop-nav { display: flex; align-items: center; gap: 2.5rem; }
+            .desktop-nav a { text-decoration: none; color: var(--dim); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
+            .mobile-app-nav { display: none; }
+            body { padding-bottom: 0; }
+            
+            .hero { height: 90vh; display: flex; align-items: center; text-align: left; padding: 0; }
+            .hero-content h1 { font-size: 72px; }
+            .hero-content p { margin: 0 0 2.5rem 0; font-size: 18px; }
+            .btn-gold { width: auto; padding: 20px 50px; }
+            
             .kpi-grid { grid-template-columns: repeat(4, 1fr); }
-            .showcase { display: grid; grid-template-columns: repeat(2, 1fr); }
+            .showcase { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
             .venue-card img { aspect-ratio: 16/10; }
             .feature-grid { grid-template-columns: repeat(3, 1fr); }
         }
@@ -177,10 +185,10 @@
 <section class="hero">
     <div class="container">
         <div class="hero-content">
-            <span style="color:var(--gold); letter-spacing:6px; font-size:11px; font-weight:800; text-transform:uppercase;">The Gold Standard 2026</span>
+            <span style="color:var(--gold); letter-spacing:4px; font-size:10px; font-weight:800; text-transform:uppercase;">The Gold Standard 2026</span>
             <h1>Grand Venues.<br>Verified Assets.</h1>
             <p>Direct access to luxury spaces with absolute transparency and legacy-grade management.</p>
-            <a href="#explore" class="btn-gold">Explore Collection <i class="fa-solid fa-arrow-right" style="margin-left:15px;"></i></a>
+            <a href="#explore" class="btn-gold">Explore Collection <i class="fa-solid fa-arrow-right" style="margin-left:10px;"></i></a>
         </div>
     </div>
 </section>
@@ -198,19 +206,19 @@
     <div class="showcase">
         <div class="venue-card">
             <div class="v-badge"><i class="fa-solid fa-circle-check"></i> VERIFIED</div>
-            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1200" alt="Palatial Estate">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1200" alt="Vedic Heritage Estates">
             <div class="venue-overlay">
                 <h3>Vedic Heritage Estates</h3>
-                <p>Architectural landmarks optimized for high-status weddings.</p>
+                <p>Architectural landmarks for high-status weddings.</p>
             </div>
         </div>
 
         <div class="venue-card">
             <div class="v-badge"><i class="fa-solid fa-circle-check"></i> VERIFIED</div>
-            <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=1200" alt="Grand Pavilion">
+            <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=1200" alt="The Grace Protocol">
             <div class="venue-overlay">
                 <h3>The Grace Protocol</h3>
-                <p>Operational integrity through verified asset management.</p>
+                <p>Verified operational integrity for every event.</p>
             </div>
         </div>
     </div>
@@ -219,26 +227,26 @@
         <div class="feature-item">
             <i class="fa-solid fa-shield-halved"></i>
             <h4>Security Protocol</h4>
-            <p>Integrated management for VVIP movements and private gatherings.</p>
+            <p>Management for VVIP movements and private gatherings.</p>
         </div>
         <div class="feature-item">
             <i class="fa-solid fa-bolt-lightning"></i>
             <h4>Instant Concierge</h4>
-            <p>Direct access to dedicated hub managers available 24/7.</p>
+            <p>Direct access to dedicated managers available 24/7.</p>
         </div>
         <div class="feature-item">
             <i class="fa-solid fa-gem"></i>
             <h4>1% Curated</h4>
-            <p>Only the top tier of architectural landmarks qualify for listing.</p>
+            <p>Only top-tier architectural landmarks qualify for listing.</p>
         </div>
     </div>
 </main>
 
 <footer>
     <div class="container">
-        <div class="logo" style="margin-bottom: 30px;">KALYANAM HUB</div>
-        <p style="color: var(--dim); font-size: 15px; max-width: 350px; margin: 0 auto 30px;">Defining the future of luxury venue brokerage through excellence.</p>
-        <div style="color: #475569; font-size: 10px; letter-spacing: 3px; font-weight: 700;">
+        <div class="logo" style="margin-bottom: 20px;">KALYANAM HUB</div>
+        <p style="color: var(--dim); font-size: 13px; max-width: 300px; margin: 0 auto 20px;">Defining the future of luxury venue brokerage through excellence.</p>
+        <div style="color: #475569; font-size: 9px; letter-spacing: 2px; font-weight: 700;">
             © 2026 KALYANAM HUB. PRECISION ENGINEERED.
         </div>
     </div>
