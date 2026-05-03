@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact Us - VenueVista</title>
 
 <style>
@@ -10,57 +11,82 @@ body {
   font-family: 'Poppins', sans-serif;
   background: #0f172a;
   color: white;
+  padding: 20px;
 }
 
 /* HEADER */
 .header {
   text-align: center;
-  padding: 50px;
+  padding: 40px 10px;
 }
 
 /* CONTAINER */
 .container {
-  max-width: 700px;
+  width: 100%;
+  max-width: 600px;
   margin: auto;
   background: #111827;
-  padding: 30px;
+  padding: 25px;
   border-radius: 16px;
   box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  box-sizing: border-box;
 }
 
 /* INPUTS */
 input, select, textarea {
   width: 100%;
   padding: 12px;
-  margin-top: 12px;
+  margin-top: 15px;
   border-radius: 8px;
-  border: none;
+  border: 1px solid #374151;
+  background: #1f2937;
+  color: white;
   outline: none;
+  box-sizing: border-box;
+  font-size: 16px;
 }
 
 /* BUTTON */
 button {
   width: 100%;
   padding: 14px;
-  margin-top: 20px;
+  margin-top: 25px;
   background: gold;
   color: black;
   border: none;
   border-radius: 8px;
   font-weight: bold;
+  font-size: 1rem;
   cursor: pointer;
   transition: 0.3s;
 }
 
 button:hover {
-  transform: scale(1.03);
+  background: #e6c200;
+  transform: translateY(-2px);
 }
 
 /* INFO */
 .info {
-  margin-top: 20px;
+  margin-top: 30px;
   text-align: center;
   color: #9ca3af;
+  line-height: 1.8;
+}
+
+.info a {
+  color: #fbbf24; /* Golden color for links */
+  text-decoration: none;
+}
+
+.info a:hover {
+  text-decoration: underline;
+}
+
+/* MOBILE ADJUSTMENTS */
+@media (max-width: 480px) {
+  .header h1 { font-size: 1.5rem; }
+  .container { padding: 20px; }
 }
 </style>
 </head>
@@ -75,27 +101,21 @@ button:hover {
 <div class="container">
 
 <form onsubmit="submitForm(event)">
-
-<input type="text" placeholder="Full Name" required>
-
-<input type="tel" placeholder="Mobile Number" required>
-
-<select required>
-  <option value="">Select Event Type</option>
-  <option>Wedding</option>
-  <option>Birthday</option>
-  <option>Corporate</option>
-</select>
-
-<textarea rows="4" placeholder="Your Message"></textarea>
-
-<button type="submit">Send Message</button>
-
+  <input type="text" placeholder="Full Name" required>
+  <input type="tel" placeholder="Mobile Number" required>
+  <select required>
+    <option value="">Select Event Type</option>
+    <option>Wedding</option>
+    <option>Birthday</option>
+    <option>Corporate</option>
+  </select>
+  <textarea rows="4" placeholder="Your Message"></textarea>
+  <button type="submit">Send Message</button>
 </form>
 
 <div class="info">
-  📞 +91 9876543210 <br>
-  📧 venuvista@email.com <br>
+  📞 <a href="tel:+919390653955">+91 9390653955</a> <br>
+  📧 <a href="mailto:contact.kalyanamhub@gmail.com">contact.kalyanamhub@gmail.com</a> <br>
   📍 Andhra Pradesh, India
 </div>
 
