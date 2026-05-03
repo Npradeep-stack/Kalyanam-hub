@@ -17,11 +17,16 @@
             --text: #F8FAFC;
             --dim: #94A3B8;
             --success: #22c55e;
-            --glass: rgba(10, 15, 25, 0.94);
+            --glass: rgba(10, 15, 25, 0.96);
             --border: rgba(255, 255, 255, 0.08);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent; 
+        }
         
         body {
             background-color: var(--bg);
@@ -29,36 +34,36 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             line-height: var(--phi);
             overflow-x: hidden;
-            /* Extra bottom padding to ensure content is never blocked by the Action Dock */
+            /* CRITICAL: Space for Action Dock */
             padding-bottom: 140px; 
         }
 
         #scrollProgress {
             position: fixed; top: 0; left: 0; width: 0%; height: 3px;
             background: linear-gradient(to right, var(--gold), #FFF);
-            z-index: 9999;
+            z-index: 10000;
         }
 
-        .container { width: 90%; max-width: 1400px; margin: 0 auto; }
+        .container { width: 92%; max-width: 1400px; margin: 0 auto; }
 
-        /* --- 1. REFINED HEADER --- */
+        /* --- 1. MINIMAL HEADER --- */
         header.main-nav {
             position: sticky; top: 0; z-index: 8000;
             background: var(--glass); backdrop-filter: blur(30px);
-            height: 70px; border-bottom: 1px solid var(--border);
+            height: 65px; border-bottom: 1px solid var(--border);
             display: flex; align-items: center; justify-content: center;
         }
 
         .logo { 
             font-family: 'Playfair Display', serif; 
-            font-size: 22px; color: var(--gold); 
-            text-decoration: none; font-weight: 900; letter-spacing: -0.5px;
+            font-size: 20px; color: var(--gold); 
+            text-decoration: none; font-weight: 900; letter-spacing: 1px;
         }
 
-        /* --- 2. THE BIG THUMB CTA & DOCK --- */
+        /* --- 2. THUMB-FRIENDLY NAV BAR --- */
         .mobile-action-dock {
             position: fixed; bottom: 0; left: 0; right: 0;
-            height: 95px; background: rgba(5, 7, 10, 0.98);
+            height: 85px; background: rgba(10, 12, 18, 0.98);
             backdrop-filter: blur(40px); border-top: 1px solid var(--border);
             z-index: 9999; display: flex; justify-content: space-around; align-items: center;
             padding-bottom: env(safe-area-inset-bottom);
@@ -67,72 +72,88 @@
         .dock-item {
             flex: 1; display: flex; flex-direction: column;
             align-items: center; justify-content: center;
-            text-decoration: none; color: var(--dim); gap: 4px;
+            text-decoration: none; color: var(--dim); gap: 6px;
+            height: 100%;
         }
 
-        .dock-item i { font-size: 22px; transition: 0.3s; }
-        .dock-item span { font-size: 10px; font-weight: 700; text-transform: uppercase; }
+        .dock-item i { font-size: 24px; transition: 0.2s; }
+        .dock-item span { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
         .dock-item.active { color: var(--gold); }
+        .dock-item:active i { transform: scale(0.85); }
 
         /* THE PRIMARY ACTION (CENTRAL BUTTON) */
         .thumb-cta-center {
-            position: relative; top: -30px; /* Floats high for perfect thumb reach */
+            position: relative; top: -25px;
             background: var(--gold); color: #000;
-            width: 70px; height: 70px; border-radius: 50%;
+            width: 72px; height: 72px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 12px 30px rgba(212, 175, 55, 0.4);
             border: 6px solid var(--bg);
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .thumb-cta-center:active { transform: scale(0.9); }
-        .thumb-cta-center i { font-size: 28px; }
+        .thumb-cta-center:active { transform: scale(0.88) translateY(5px); }
+        .thumb-cta-center i { font-size: 30px; }
 
-        /* --- 3. MOBILE-FIRST HERO --- */
+        /* --- 3. HERO SECTION --- */
         .hero {
-            padding: 50px 0 30px; text-align: center;
-            background: linear-gradient(rgba(5,7,10,0.7), rgba(5,7,10,0.7)),
+            padding: 60px 0 40px; text-align: center;
+            background: linear-gradient(rgba(5,7,10,0.8), rgba(5,7,10,0.8)),
                         url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&q=80&w=1000') center/cover;
         }
 
-        .hero h1 { font-family: 'Playfair Display', serif; font-size: 34px; line-height: 1.2; margin: 15px 0; }
-        .hero p { font-size: 14px; color: var(--dim); max-width: 300px; margin: 0 auto; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 38px; line-height: 1.1; margin: 15px 0; font-weight: 900; }
+        .hero p { font-size: 15px; color: var(--dim); max-width: 85%; margin: 0 auto; }
 
-        /* --- 4. TAPPABLE CARDS --- */
-        .showcase { padding: 30px 0; display: flex; flex-direction: column; gap: 30px; }
+        /* --- 4. TAPPABLE CONTENT CARDS --- */
+        .showcase { padding: 20px 0; display: flex; flex-direction: column; gap: 25px; }
         
         .venue-card {
             display: block; text-decoration: none; color: inherit;
-            position: relative; width: 100%; border-radius: 24px; overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            transition: transform 0.2s ease;
+            position: relative; width: 100%; border-radius: 28px; overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border: 1px solid var(--border);
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .venue-card:active { transform: scale(0.97); }
+        .venue-card:active { transform: scale(0.96); } /* Feedback on touch */
 
-        .venue-card img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+        .venue-card img { width: 100%; aspect-ratio: 1/1.2; object-fit: cover; }
         
         .venue-overlay {
-            position: absolute; inset: 0; padding: 1.5rem;
-            background: linear-gradient(to top, rgba(0,0,0,0.95) 5%, transparent 60%);
+            position: absolute; inset: 0; padding: 2rem;
+            background: linear-gradient(to top, rgba(5,7,10,1) 0%, rgba(5,7,10,0.4) 40%, transparent 100%);
             display: flex; flex-direction: column; justify-content: flex-end;
         }
 
-        .venue-overlay h3 { font-family: 'Playfair Display'; font-size: 22px; margin-bottom: 5px; }
-        .venue-overlay p { font-size: 13px; color: var(--dim); }
+        .venue-overlay h3 { font-family: 'Playfair Display'; font-size: 24px; margin-bottom: 4px; }
+        .venue-overlay p { font-size: 14px; color: var(--dim); font-weight: 500; }
         
-        .v-badge { position: absolute; top: 20px; left: 20px; background: #FFF; color: var(--success); padding: 6px 14px; border-radius: 50px; font-size: 9px; font-weight: 800; }
+        .v-badge { 
+            position: absolute; top: 20px; left: 20px; 
+            background: rgba(255,255,255,0.95); color: #000; 
+            padding: 8px 16px; border-radius: 50px; 
+            font-size: 10px; font-weight: 800; letter-spacing: 1px;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .v-badge i { color: var(--success); font-size: 12px; }
 
-        /* --- 5. COMPACT KPI WIDGETS --- */
-        .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding-bottom: 30px; }
-        .kpi-item { background: #0D111A; padding: 20px; border-radius: 16px; border-left: 4px solid var(--gold); }
-        .kpi-item h2 { color: var(--gold); font-size: 22px; margin-bottom: 2px; }
-        .kpi-item p { font-size: 10px; text-transform: uppercase; color: var(--dim); font-weight: 700; letter-spacing: 1px; }
+        /* --- 5. KPI WIDGETS --- */
+        .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .kpi-item { 
+            background: var(--card-bg); padding: 22px 18px; border-radius: 20px; 
+            border: 1px solid var(--border);
+            transition: 0.2s;
+        }
+        .kpi-item:active { background: rgba(212, 175, 55, 0.05); border-color: var(--gold); }
+        .kpi-item h2 { color: var(--gold); font-size: 26px; margin-bottom: 0px; font-weight: 800; }
+        .kpi-item p { font-size: 11px; text-transform: uppercase; color: var(--dim); font-weight: 700; letter-spacing: 1px; }
 
-        /* --- DESKTOP ADJUSTMENTS --- */
+        /* --- DESKTOP ADAPTATION --- */
         @media (min-width: 1024px) {
             .mobile-action-dock { display: none; }
             body { padding-bottom: 0; }
-            .hero { padding: 150px 0; }
-            .hero h1 { font-size: 72px; }
+            header.main-nav { height: 90px; }
+            .hero { padding: 120px 0; }
+            .hero h1 { font-size: 80px; }
             .kpi-grid { grid-template-columns: repeat(4, 1fr); }
             .showcase { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
             .venue-card img { aspect-ratio: 16/10; }
@@ -147,32 +168,46 @@
     <a href="index.html" class="logo">KALYANAM HUB</a>
 </header>
 
+<!-- NAVIGATION DOCK: Thumb-Friendly & Single Hand Optimized -->
 <nav class="mobile-action-dock">
-    <a href="index.html" class="dock-item active"><i class="fa-solid fa-house"></i><span>Home</span></a>
-    <a href="venues.html" class="dock-item"><i class="fa-solid fa-hotel"></i><span>Venues</span></a>
+    <a href="index.html" class="dock-item active">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </a>
+    <a href="venues.html" class="dock-item">
+        <i class="fa-solid fa-hotel"></i>
+        <span>Venues</span>
+    </a>
     
+    <!-- Primary CTA: Accessible Center Anchor -->
     <a href="booking.html" class="thumb-cta-center">
         <i class="fa-solid fa-calendar-check"></i>
     </a>
     
-    <a href="services.html" class="dock-item"><i class="fa-solid fa-crown"></i><span>Services</span></a>
-    <a href="contactus.html" class="dock-item"><i class="fa-solid fa-headset"></i><span>Support</span></a>
+    <a href="services.html" class="dock-item">
+        <i class="fa-solid fa-crown"></i>
+        <span>Services</span>
+    </a>
+    <a href="contactus.html" class="dock-item">
+        <i class="fa-solid fa-headset"></i>
+        <span>Support</span>
+    </a>
 </nav>
 
 <section class="hero">
     <div class="container">
-        <span style="color:var(--gold); letter-spacing:3px; font-size:10px; font-weight:800; text-transform:uppercase;">Luxury Brokerage 2026</span>
-        <h1>Grand Venues.<br>Verified Assets.</h1>
-        <p>Human-vetted luxury spaces for your most important milestones.</p>
+        <span style="color:var(--gold); letter-spacing:4px; font-size:11px; font-weight:800; text-transform:uppercase;">Luxury Brokerage 2026</span>
+        <h1>Elite Venues.<br>Zero Friction.</h1>
+        <p>Curating the world's most architectural landmarks for private milestones.</p>
     </div>
 </section>
 
 <main class="container">
     <div class="kpi-grid">
-        <div class="kpi-item"><h2>Peak</h2><p>Multipliers</p></div>
-        <div class="kpi-item"><h2>5%</h2><p>Grace Fee</p></div>
-        <div class="kpi-item"><h2>100%</h2><p>Verified</p></div>
-        <div class="kpi-item"><h2>2026</h2><p>Certified</p></div>
+        <div class="kpi-item"><h2>Peak</h2><p>Performance</p></div>
+        <div class="kpi-item"><h2>5%</h2><p>Flat Fee</p></div>
+        <div class="kpi-item"><h2>100%</h2><p>Vetted</p></div>
+        <div class="kpi-item"><h2>24/7</h2><p>Concierge</p></div>
     </div>
 
     <div class="showcase">
@@ -196,11 +231,12 @@
     </div>
 </main>
 
-<footer style="padding: 60px 0; text-align: center; border-top: 1px solid var(--border); opacity: 0.5;">
-    <p style="font-size: 10px; letter-spacing: 2px;">© 2026 KALYANAM HUB PRO</p>
+<footer style="padding: 80px 0; text-align: center; border-top: 1px solid var(--border); opacity: 0.4;">
+    <p style="font-size: 11px; letter-spacing: 3px; font-weight: 700;">© 2026 KALYANAM HUB PRO</p>
 </footer>
 
 <script>
+    // Smooth Scroll Progress Logic
     window.onscroll = function() {
         let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
         let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
