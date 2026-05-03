@@ -2,22 +2,42 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact Us - VenueVista</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Contact Us - Kalyanam Hub</title>
+
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
+:root {
+  --gold: #D4AF37;
+  --bg: #05070A;
+  --card-bg: #111827;
+  --text: #F8FAFC;
+  --dim: #94A3B8;
+  --border: rgba(255, 255, 255, 0.08);
+}
+
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: #0f172a;
-  color: white;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
   padding: 20px;
+  padding-bottom: 120px; /* Space for the dock */
 }
 
 /* HEADER */
 .header {
   text-align: center;
-  padding: 40px 10px;
+  padding: 40px 10px 20px;
+}
+
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  margin-bottom: 8px;
 }
 
 /* CONTAINER */
@@ -25,20 +45,21 @@ body {
   width: 100%;
   max-width: 600px;
   margin: auto;
-  background: #111827;
+  background: var(--card-bg);
   padding: 25px;
-  border-radius: 16px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  border-radius: 24px;
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
   box-sizing: border-box;
 }
 
 /* INPUTS */
 input, select, textarea {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   margin-top: 15px;
-  border-radius: 8px;
-  border: 1px solid #374151;
+  border-radius: 12px;
+  border: 1px solid var(--border);
   background: #1f2937;
   color: white;
   outline: none;
@@ -46,47 +67,74 @@ input, select, textarea {
   font-size: 16px;
 }
 
+input:focus, select:focus, textarea:focus {
+  border-color: var(--gold);
+}
+
 /* BUTTON */
 button {
   width: 100%;
-  padding: 14px;
+  padding: 16px;
   margin-top: 25px;
-  background: gold;
+  background: var(--gold);
   color: black;
   border: none;
-  border-radius: 8px;
-  font-weight: bold;
+  border-radius: 12px;
+  font-weight: 800;
   font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   cursor: pointer;
   transition: 0.3s;
 }
 
-button:hover {
-  background: #e6c200;
-  transform: translateY(-2px);
-}
+button:active { transform: scale(0.96); }
 
 /* INFO */
 .info {
   margin-top: 30px;
   text-align: center;
-  color: #9ca3af;
+  color: var(--dim);
   line-height: 1.8;
 }
 
 .info a {
-  color: #fbbf24; /* Golden color for links */
+  color: var(--gold);
   text-decoration: none;
+  font-weight: 600;
 }
 
-.info a:hover {
-  text-decoration: underline;
+/* --- MOBILE ACTION DOCK (Same as Index) --- */
+.mobile-action-dock {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  height: 95px; background: rgba(5, 7, 10, 0.98);
+  backdrop-filter: blur(40px); border-top: 1px solid var(--border);
+  z-index: 9999; display: flex; justify-content: space-around; align-items: center;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* MOBILE ADJUSTMENTS */
-@media (max-width: 480px) {
-  .header h1 { font-size: 1.5rem; }
-  .container { padding: 20px; }
+.dock-item {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-decoration: none; color: var(--dim); gap: 4px;
+}
+
+.dock-item i { font-size: 22px; }
+.dock-item span { font-size: 10px; font-weight: 700; text-transform: uppercase; }
+.dock-item.active { color: var(--gold); }
+
+.thumb-cta-center {
+  position: relative; top: -30px;
+  background: var(--gold); color: #000;
+  width: 70px; height: 70px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4);
+  border: 6px solid var(--bg);
+}
+
+@media (min-width: 1024px) {
+  .mobile-action-dock { display: none; }
+  body { padding-bottom: 20px; }
 }
 </style>
 </head>
@@ -95,31 +143,42 @@ button:hover {
 
 <div class="header">
   <h1>Contact Us</h1>
-  <p>We’re here to help you plan your perfect event</p>
+  <p style="color: var(--dim);">Expert assistance for your luxury events</p>
 </div>
 
 <div class="container">
+  <form onsubmit="submitForm(event)">
+    <input type="text" placeholder="Full Name" required>
+    <input type="tel" placeholder="Mobile Number" required>
+    <select required>
+      <option value="">Select Event Type</option>
+      <option>Wedding</option>
+      <option>Birthday</option>
+      <option>Corporate</option>
+    </select>
+    <textarea rows="4" placeholder="Your Message"></textarea>
+    <button type="submit">Send Message</button>
+  </form>
 
-<form onsubmit="submitForm(event)">
-  <input type="text" placeholder="Full Name" required>
-  <input type="tel" placeholder="Mobile Number" required>
-  <select required>
-    <option value="">Select Event Type</option>
-    <option>Wedding</option>
-    <option>Birthday</option>
-    <option>Corporate</option>
-  </select>
-  <textarea rows="4" placeholder="Your Message"></textarea>
-  <button type="submit">Send Message</button>
-</form>
-
-<div class="info">
-  📞 <a href="tel:+919390653955">+91 9390653955</a> <br>
-  📧 <a href="mailto:contact.kalyanamhub@gmail.com">contact.kalyanamhub@gmail.com</a> <br>
-  📍 Andhra Pradesh, India
+  <div class="info">
+    📞 <a href="tel:+919390653955">+91 9390653955</a> <br>
+    📧 <a href="mailto:contact.kalyanamhub@gmail.com">contact.kalyanamhub@gmail.com</a> <br>
+    📍 Andhra Pradesh, India
+  </div>
 </div>
 
-</div>
+<!-- NAV BAR VISIBLE FOR MOBILE -->
+<nav class="mobile-action-dock">
+  <a href="index.html" class="dock-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+  <a href="venues.html" class="dock-item"><i class="fa-solid fa-hotel"></i><span>Venues</span></a>
+  
+  <a href="booking.html" class="thumb-cta-center">
+      <i class="fa-solid fa-calendar-check"></i>
+  </a>
+  
+  <a href="services.html" class="dock-item"><i class="fa-solid fa-crown"></i><span>Services</span></a>
+  <a href="contactus.html" class="dock-item active"><i class="fa-solid fa-headset"></i><span>Support</span></a>
+</nav>
 
 <script>
 function submitForm(e){
